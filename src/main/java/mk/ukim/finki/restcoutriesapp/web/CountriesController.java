@@ -33,19 +33,19 @@ public class CountriesController {
         return countryService.countCountriesByRegion();
     }
     // CRUD functionalities
-    @GetMapping("/countries/favourite")
+    @GetMapping("/countries/favourites")
     public List<CountryDTO> getFavouriteCountries() {
         List<CountryDTO> allCountries = countryService.getAllCountries();
         return countryService.getFavouriteCountries(allCountries);
     }
 
-    @PostMapping("/countries/favourites/add")
+    @PostMapping("/countries/favourites")
     public Country save(@RequestBody Country country) {
         country.setId(null);
         return this.countryService.save(country);
     }
 
-    @PutMapping("/countries/favourite/edit/{id}")
+    @PutMapping("/countries/favourites/{id}")
     public ResponseEntity<Country> update(@PathVariable Long id, @RequestBody Country country) {
         return this.countryService.update(id, country)
                 .map(country1 -> ResponseEntity.ok().body(country1))
@@ -54,7 +54,7 @@ public class CountriesController {
     }
 
 
-    @DeleteMapping("/countries/favourites/delete/{id}")
+    @DeleteMapping("/countries/favourites/{id}")
     public ResponseEntity<Country> delete(@PathVariable Long id) {
         this.countryService.deleteCountryById(id);
         if (this.countryService.findCountryById(id).isEmpty()) {

@@ -74,6 +74,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public Country save(Country country) {
+        country.setId(null);
         return this.countryRepository.save(country);
     }
 
