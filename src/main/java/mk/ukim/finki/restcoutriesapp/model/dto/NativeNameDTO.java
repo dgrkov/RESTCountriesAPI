@@ -8,4 +8,12 @@ public class NativeNameDTO {
     private String common;
 
     // Getters and setters
+
+    public NativeNameDTO(String official, String common) {
+        this.official = official;
+        this.common = common;
+    }
+
+    public NativeNameDTO() {
+    }
 }

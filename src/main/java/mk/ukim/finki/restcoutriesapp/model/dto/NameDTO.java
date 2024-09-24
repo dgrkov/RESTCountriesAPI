@@ -15,4 +15,12 @@ public class NameDTO {
 
     // Getters and setters
 
+    public NameDTO(String common, String official, Map<String, NativeNameDTO> nativeName) {
+        this.common = common;
+        this.official = official;
+        this.nativeName = nativeName;
+    }
+
+    public NameDTO() {
+    }
 }
