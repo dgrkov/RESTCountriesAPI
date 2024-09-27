@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -215,5 +216,28 @@ class CountriesControllerTest {
                 .andDo(print());
 
         verify(countryService, times(1)).update(eq(1L), any(Country.class));
+    }
+
+    @Test
+    void delete() throws Exception {
+        Country country = new Country("France", "Paris", "Europe", "Euro", '€', "French");
+        Long countryId = 1L;
+        country.setId(countryId);
+        when(countryService.findCountryById(countryId)).thenReturn(Optional.of(country));
+
+        ResponseEntity<Country> responseEntity = countriesController.delete(countryId);
+
+        verify(countryService, times(1)).deleteCountryById(countryId);
+        assertEquals(ResponseEntity.ok().build(), responseEntity);
+    }
+
+    @Test
+    void shouldNotDelete() throws Exception {
+        Long countryId = 1L;
+
+        when(countryService.findCountryById(countryId)).thenReturn(Optional.empty());
+        ResponseEntity<Country> responseEntity = countriesController.delete(countryId);
+        verify(countryService, never()).deleteCountryById(countryId);
+        assertEquals(ResponseEntity.notFound().build(), responseEntity);
     }
 }

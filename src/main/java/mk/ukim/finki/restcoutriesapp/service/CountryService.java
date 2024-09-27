@@ -16,4 +16,5 @@ public interface CountryService {
     void deleteCountryById(Long id);
     Country save(Country country);
     Optional<Country> update(Long id, Country country);
+    List<Country> getMyFavouriteCountries();
 }

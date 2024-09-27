@@ -90,4 +90,9 @@ public class CountryServiceImpl implements CountryService {
         return Optional.of(countryRepository.save(oldCountry));
     }
 
+    @Override
+    public List<Country> getMyFavouriteCountries() {
+        return countryRepository.findAll();
+    }
+
 }

@@ -39,6 +39,11 @@ public class CountriesController {
         return countryService.getFavouriteCountries(allCountries);
     }
 
+    @GetMapping("/countries/myFavourites")
+    public List<Country> getMyFavouriteCountries() {
+        return this.countryService.getMyFavouriteCountries();
+    }
+
     @PostMapping("/countries/favourites")
     public Country save(@RequestBody Country country) {
         country.setId(null);
@@ -56,10 +61,10 @@ public class CountriesController {
 
     @DeleteMapping("/countries/favourites/{id}")
     public ResponseEntity<Country> delete(@PathVariable Long id) {
-        this.countryService.deleteCountryById(id);
-        if (this.countryService.findCountryById(id).isEmpty()) {
+        if (this.countryService.findCountryById(id).isPresent()) {
+            this.countryService.deleteCountryById(id);
             return ResponseEntity.ok().build();
-        } else
-            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
