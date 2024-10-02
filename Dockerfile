@@ -10,7 +10,7 @@ WORKDIR /build
 COPY ./src src/
 RUN --mount=type=bind,source=pom.xml,target=pom.xml \
     --mount=type=cache,target=/root/.m2 \
-    ./mvnw test
+    ./mvnw test -Dspring.profiles.active=test
 
 FROM base as deps
 WORKDIR /build
