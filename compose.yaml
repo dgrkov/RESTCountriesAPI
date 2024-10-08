@@ -21,10 +21,10 @@ services:
       - SPRING_DATASOURCE_PASSWORD=root
       - SPRING_PROFILES_ACTIVE=mariadb
 #Use Compose Watch to automatically update your running Compose services as you edit and save your code.
-    develop:
-      watch:
-        - action: rebuild
-          path: .
+#    develop:
+#      watch:
+#        - action: rebuild
+#          path: .
 
 # The commented out section below is an example of how to define a MariaDB
 # database that your application can use. `depends_on` tells Docker Compose to
