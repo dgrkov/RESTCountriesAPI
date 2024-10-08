@@ -32,3 +32,27 @@ jobs:
           push: true
           target: final
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/restcountriesapi:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install docker-compose -y
+
+      - name: Set up Docker context
+        run: docker context use default
+
+      - name: Pull latest image
+        run: docker-compose pull
+
+      - name: Deploy with Docker Compose
+        run: docker-compose up -d --build
+
+      - name: Verify services
+        run: docker-compose ps
